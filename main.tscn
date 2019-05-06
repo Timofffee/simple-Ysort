@@ -1,0 +1,143 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://test_tex32.png" type="Texture" id=1]
+[ext_resource path="res://tree.tscn" type="PackedScene" id=2]
+[ext_resource path="res://player.tres.gd" type="Script" id=3]
+[ext_resource path="res://player.png" type="Texture" id=4]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 4.0
+
+[sub_resource type="Animation" id=2]
+resource_name = "move_down"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("player:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "move_left"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("player:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 12, 13, 14, 15 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "move_right"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("player:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7 ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("player:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 8, 9, 10, 11 ]
+}
+
+[node name="main" type="Node2D"]
+
+[node name="ground" type="Sprite" parent="."]
+position = Vector2( 4, -4 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 266, 168 )
+
+[node name="ysort" type="YSort" parent="."]
+
+[node name="tree" parent="ysort" instance=ExtResource( 2 )]
+
+[node name="tree2" parent="ysort" instance=ExtResource( 2 )]
+position = Vector2( 31, -7 )
+
+[node name="tree3" parent="ysort" instance=ExtResource( 2 )]
+position = Vector2( 13, -25 )
+
+[node name="tree4" parent="ysort" instance=ExtResource( 2 )]
+position = Vector2( -20, 35 )
+
+[node name="tree5" parent="ysort" instance=ExtResource( 2 )]
+position = Vector2( 24, 33 )
+
+[node name="tree6" parent="ysort" instance=ExtResource( 2 )]
+position = Vector2( -29, -16 )
+
+[node name="tree7" parent="ysort" instance=ExtResource( 2 )]
+position = Vector2( -9, -46 )
+
+[node name="tree8" parent="ysort" instance=ExtResource( 2 )]
+position = Vector2( 3, 51 )
+
+[node name="tree9" parent="ysort" instance=ExtResource( 2 )]
+position = Vector2( 56, 27 )
+
+[node name="tree10" parent="ysort" instance=ExtResource( 2 )]
+position = Vector2( 45, -19 )
+
+[node name="player" type="KinematicBody2D" parent="ysort"]
+editor/display_folded = true
+position = Vector2( -63, 20 )
+script = ExtResource( 3 )
+
+[node name="player" type="Sprite" parent="ysort/player"]
+position = Vector2( 0, -3 )
+texture = ExtResource( 4 )
+vframes = 4
+hframes = 4
+
+[node name="col" type="CollisionShape2D" parent="ysort/player"]
+shape = SubResource( 1 )
+
+[node name="cam" type="Camera2D" parent="ysort/player"]
+current = true
+zoom = Vector2( 0.25, 0.25 )
+drag_margin_h_enabled = false
+drag_margin_v_enabled = false
+
+[node name="anim" type="AnimationPlayer" parent="ysort/player"]
+anims/move_down = SubResource( 2 )
+anims/move_left = SubResource( 3 )
+anims/move_right = SubResource( 4 )
+anims/move_up = SubResource( 5 )
+
+[node name="tween" type="Tween" parent="."]
